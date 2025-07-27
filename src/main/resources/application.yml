@@ -1,0 +1,11 @@
+server:
+  port: 8090
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+
+github:
+  api:
+    url: "https://api.github.com"
