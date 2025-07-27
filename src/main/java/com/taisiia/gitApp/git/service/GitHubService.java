@@ -54,15 +54,11 @@ public class GitHubService {
     public List<GitHubRepo> getGitHubRepoList(String userName) {
         String url = baseUrl + "/users/{username}/repos";
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
-
         try {
             ResponseEntity<GitHubRepo[]> response = restTemplate.exchange(
                     url,
                     HttpMethod.GET,
-                    entity,
+                    getHttpEntity(),
                     GitHubRepo[].class,
                     userName
             );
@@ -84,15 +80,11 @@ public class GitHubService {
     public List<Branch> getBranchList(String owner, String repo) {
         String url = baseUrl + "/repos/{owner}/{repo}/branches";
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
-
         try {
             ResponseEntity<Branch[]> response = restTemplate.exchange(
                     url,
                     HttpMethod.GET,
-                    entity,
+                    getHttpEntity(),
                     Branch[].class,
                     owner,
                     repo
@@ -108,5 +100,11 @@ public class GitHubService {
         } catch (RestClientException e) {
             throw new GitHubException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "GitHub API error: " + e.getMessage());
         }
+    }
+
+    private HttpEntity<Void> getHttpEntity() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        return new HttpEntity<>(headers);
     }
 }
