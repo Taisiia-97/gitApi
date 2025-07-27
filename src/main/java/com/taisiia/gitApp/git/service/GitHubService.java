@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 public class GitHubService {
@@ -25,9 +24,9 @@ public class GitHubService {
 
     private final ExecutorService executor;
 
-    public GitHubService(RestClient restClient) {
+    public GitHubService(RestClient restClient, ExecutorService executor) {
         this.restClient = restClient;
-        this.executor = Executors.newVirtualThreadPerTaskExecutor();
+        this.executor = executor;
     }
 
     public List<GitRepositoryDto> getRepoByUserName(String userName) {
