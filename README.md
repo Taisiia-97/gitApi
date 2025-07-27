@@ -28,8 +28,7 @@ To use the application, send GET requests to the following endpoints:
 
 - Java 21
 - Spring Boot 3
-- WebClient
-- Lombok
+- RestTemplate
 
 
 
